@@ -1,0 +1,450 @@
+1.What is Selenium?
+Selenium is a free and open source web based test automation tool
+
+2.Data types in python
+Numeric (int ,float,complex)
+strings ('',"") immutable   //indexing and slicing can be applied   //comman methods are split() strip() lstrip() rstrip() // to reverse use [::-1] 
+lists [1,2,3,4,"hi"]       // indexing and slicing can be applied   //comman methods are append() pop()
+tuples (1,2,"hi") // immutable // indexing can be applied
+dictonaries {"k1":1,"k2":"Hello"} // key value pairs access through keys and is unordered
+
+3. How do you define functions in Python?
+
+def func(self):
+self is the first key word always
+
+4. Conditional Statements in Python?
+if (condition):
+else:
+elif (condition):
+
+5. Loops in Python?
+
+for ele in elements:
+for ele in range(1,10,2): // similar to i=0;i<num;i+2
+
+while (condition):
+
+6. How to define Constructors in Python
+
+def __init__(self):
+
+7 How Can we achieve inheritance in Python (Class)
+
+from 'path' import First (just an ex)
+Class Second(First)
+
+def __init__():
+//calling the Super class Constructor in sub class
+First.__init__()
+
+
+8. How Do we create Objects in Python
+
+obj= Second() // No new keyword 
+obj is the object reference which we can use to access parent class properties
+
+9. File reading and writing in python
+
+files=open('file',mode(r,w))
+or with open('file',mode(r,w)) as files
+
+10. How to read from the file
+
+files.read() //reads everything
+files.read(5) //reads first five characters
+
+11. How to read lines in Python?
+
+files.readline()
+files.readlines() // return a list with the data
+
+12.  How to raise exception in Python?
+
+raise Exception()
+
+13. how to handle exceptions?
+try
+except
+finally
+
+14. What are locators in selenium?
+
+Locators are used to identify webelements
+
+id,name,classname,tagname,xpath,cssselectors,linktext,partiallinktext
+
+15. What is xpath?
+xpath referes to the path of an element in html tree structure
+
+syntax //tagname[@attributename=attributevalue]
+
+16. How to select a particular class from a set of classes?
+
+xpath //tagname[contains(@attributename,'attributevalue')] //an= class aval= class value we need
+cssselector  tagname(optional)[class*='attributevalue'] 
+
+17. Difference between close() and quit()?
+close() closes the current tab
+quit() closes all tabs and closes browser as well
+
+18. How will you maximize and minimize windows?
+
+.minimize_window() and .minimize_window and set_window_size(w,h) 
+
+19 How to handle dropdowns?
+By Using Select class 
+// inspect element and send the reference into Select(reference)
+
+
+20. Different methods available for selecting
+Select(reference).selectByIndex
+Select(reference).selectByValue
+Select(reference).selectByVisibleText
+Select(reference).selectAll //for multiselectdropdown
+
+//similarly
+Select(reference).deSelectByIndex
+Select(reference).deSelectByValue
+Select(reference).deSelectByVisibleText
+Select(reference).deSelectAll  //for multiselectdropdown
+
+21. How to handle dropdowns without using Select?
+create a xpath and list all the options and run a for loop and select the options accordingly
+
+22. How to send values or perform action on a disabled element?
+by using driver.executeScript() Using Javascript executor
+
+23. How to Perform scrolling in Selenium?
+Selenium By Default doesn't have any methods to support scrolling
+but we can achieve the same by using javascript executor
+
+24. Different Methods Avaialbe to Scroll?
+driver.executeScript("window.scrollBy(horizontal,vertical)")
+driver.executeScript("window.scrollBy("arguments[0].scrollIntoView();",element)) //if we want to scroll till the element is located
+driver.executeScript("window.scrollBy(0,document.body.scrollHeight)) // to scroll till the end
+
+25. How to Perform Mouse Actions?
+By Using ActionChains class we can perform Mouse Actions
+some of the popular options are 
+moveToElement
+dargAndDrop
+clickAndHold.moveToElement.release.perform
+contextClick //rightclick
+doubleclick // doubleclick
+//perform method is mandatory
+
+26. Different ways to pass values into textbox?
+sendKeys()
+JSexecutor
+document.executeScript("arguments[0].value=arguments[1]",element,"value")
+By Using ActionChains
+acts=Actions(driver)
+acts.sendkeystoelement
+
+27. How to handle authentication popup?
+https://username:password@url.com
+
+28. How to handle file upload?
+If type='file'
+just use driver.findelement(locator).sendkeys(path of the file seperated by \\)
+
+29. How to Handle frames?
+inorder to handle frames we need to switch to the frame
+driver.switchtoframe() // we can switch by id,name,index
+
+30. How to Switch back from frame?
+driver.switchtodefaultcontent
+
+31. How to switch from one window to another window?
+we can get the window ids
+to get first window id 
+driver.currentWindowHandle
+driver.windowhandles
+// we will get window ids of all open windows
+
+inorder to switch we just need to provide the window ids in driver.switch_to.window(window id)
+
+32. How to perform browser options?
+driver.forward()
+driver.back()
+driver.refresh()
+
+33. How to handle cookies in selenium?
+
+driver.get_cookies to get all the cookies
+driver.add_cookie to add new cookie
+
+34. How to take screenshot in selenium?
+driver.getScreenShotasFile('abcd.png')
+driver.getScreenShotasPng('abcd.png')
+
+35. How to take fullscreenshot?
+
+We need to run the browser in headless mode
+then perform following code execution
+
+ S=lambda X:driver.executeScript('return document.body.parentNode.scroll'+X)
+driver.setWindowSize(S('Width'),S('Height'))
+driver.findElement(By.tagname,'body').screenshot('abcd.png')
+
+36. What is Pytest?
+Pytest is a unit testing framework just like TestNG
+
+37. How is Pytest configured and run?
+In Pytest we need to specify the testcases as functions
+def test_abcd()
+
+38. How to mark a testcase?
+@pytest.mark.skip
+@pytest.mark.smoke
+etc etc
+
+39. What is xFail?
+In Pyest If a test case is depending on another test case and if the man test case fails
+ we can still execute the test case but its status will be not reported in report
+
+40. What is a Fixture?
+@pytest.fixture()
+It is like before and after annotation
+We we want to execute some code before our test method execution starts we can do so with fixture
+like data base connection establishing and disconnecting etc
+
+ex: @pytest.fixture()
+
+def setup():
+print('Initial Setup')
+yield:
+print('Finished')
+
+def test_Fun(setup):
+print('Exec')
+
+o/p: Initial setup
+Exec
+Finished
+
+41. How to execute only specified test cases?
+
+name two test cases similar 
+ex: def test_Cardscore()
+def test_Cardscroe1()
+
+py.test -k Card -v -s
+will execute these TCs
+
+42. What is conftest.py?
+If we need some fixture to get executed for each and every test cases we can metion the fixture in conftest.py
+and we can then call the fixture in indiviual test cases 
+ex: def test_demo1(fixture method name)
+
+43.When do we need to include test cases inside class?
+If we need to use the common fixture for all the methods (test cases)
+we can do so by including them in methods
+
+@pytest.mark.usefixtures("fixture method name")
+class TestMethod:
+def test_dem1(self):
+etc etc...
+
+Note: Here for every test method fixture method will get invoked
+
+44. How and when can we define scope for fixture?
+
+In conftest file @pytest.fixture(scope="class")
+
+If we use so fixture starting statements will be executed at first
+then all the test methods
+at the end fixture ending statements will be executed
+
+45. How can we return data from fixtures to test cases?
+ @pytest.fixture(scope='class')
+def setup():
+return ['Hey','Hello']
+
+@pytest.mark.usefixtures("setup")
+class TestSetup:
+ def test_demo1(self,setup)
+ print(f'{setup[0] setup[1]}')
+
+o/p Hey Hello
+
+46. How to send parameters to test cases from fixtures?
+
+@pytest.fixture(params=[("Hey,"Hello"),("Hey1","Hello1"])
+def setup(request)
+return request.param
+
+
+def test_me1(setup):
+print(setup[0])
+
+o/p: Hey ,hey1
+
+
+47. How to do rest api testing?
+
+we need to use requests library of python 
+and we can use requests.get ,post, patch, delete accordingly
+
+48. how can we stor the api endpoints?
+we can store them in .ini file
+
+[api]
+endpoints= xyz
+
+49.how can we access the files stored in .ini file?
+
+we can use config= configparser.ConfigParser()
+
+config.read("path of the .ini file")
+
+to access config['api']['xyz'] (as previous example')
+
+50. How to pass heaaders and data to the api request?
+
+headers ={} like application/json
+json={} //some data
+
+51. how to hit endpoints with authentication?
+
+requests.get(<Endpoint>,auth=('username','password'))
+
+we can create session as well 
+
+session = requests.session()
+session.auth = ('username','password')
+session.get(<endpoint>)
+
+52. How to hit endpoint with cookies ?
+
+requests.get(<endpoint>, cookie = {'cookie-name' : 'cookie-value'})
+
+else session = requests.session()
+
+session.cookies.update({'c-name':'c-value'}
+
+session.get(<endpoint>, cookie = {'cookie-name' : 'cookie-value'})
+
+53. how to add timeouts and how to check if a url is redirected?
+
+requests.get(<endpoint>, timeouts=(seconds)) //to wait until timeouts
+
+res= requests.get(<endpoint>)
+
+print(res.history)
+
+will give status code 30X if the url is redirected
+
+
+54. How to stop url from getting redirected?
+
+requests.get(<endpoint>, allow_redirects=False)
+
+
+54. what is the package which connects python with mysql?
+
+pymysql package connects python with mysql
+
+55. how to establish connection with python and mysql?
+
+conn = pymysql.connect( host = 'localhost' , database= '<databasename>', user ='<username>', password='<password>')
+
+
+56. how to run mysql queries from python?
+
+we need to create cursor
+
+curser = conn.cursor()
+
+curser.execute(<query>)
+
+57. How to fetch multiple and single data from querying?
+
+curser.fetchone() and curser.fetchall()
+
+if we update or delete soemthing we need to run conn.commit()
+
+58. important sql queries
+
+create database <dbname> //creates a database
+
+create table <tablename>(<field> <type>, .....) //creates table with fields
+
+INSERT INTO <tablename> (<field>,<field1>...) values (val,val1)... //inserts the values into table
+
+alter table <tablename> add <column> <c-name> <type> // to alter tables
+
+update <tablename> set <column name> = value where <condition> //update values
+
+delete from <tablename> where <condition>   //delete from table
+
+
+select (condition ex: * ) from <tablename>
+where <condtion> and / or <condition> 
+
+select (condition ex:*) from <tablename>
+where <condition> IN (val1,val2,val3....)
+
+
+select (condition ex:*) from <tablename>
+where <condition> between (condition1) and (condition2)
+
+select (condition ex:*) from <tablename>
+LIMIT 3 (ex:3) will select only 3 records
+
+LIMIT 3,2 (ex) will show two records from position 3 excluding 3  i.e records at position 4 and 5 will be displayed
+
+
+JOINS: Joins are used to join two tables and retrieve some data based on some common matching values
+
+inner, Left, right,self
+
+for joins to work the primary key of one table should be a foreign key of another table and values in primary key column
+should be present in foreign key column
+
+
+//def pytest_addoption(parser):
+    parser.addoption(
+        "--browser_name", action="store", default="chrome"
+    )
+
+
+@pytest.fixture(scope="class")
+def setup(request):
+    browsername = request.config.getoption('--browser_name')
+
+    if browsername == "chrome":
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+        driver.maximize_window()
+        request.cls.driver = driver
+
+    elif browsername == "firefox":
+        driver = webdriver.Chrome(executable_path=GeckoDriverManager().install())
+        driver.maximize_window()
+        request.cls.driver = driver
+
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
